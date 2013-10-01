@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CSS Flexible Box Layout Module</title>
+<link type="text/css" rel="stylesheet" href="../styles/shCoreDefault.css" />
+<style>
+article {
+    margin: 4em 0
+}
+_fb1 {
+		display: -webkit-flex;
+	-webkit-flex-flow: row nowrap;
+    /*レイアウトの方向　//row（左から右）、column（上から下）、row-reverse（右から左）、row-reverse（下から上）*/
+	-webkit-flex-direction: row;
+	-webkit-flex-wrap: nowrap;
+    /*align-items-揃え　//flex-start（初期値） | flex-end | center | space-between | space-around*/
+	-webkit-align-items: none;
+	-webkit-justify-content: space-around;
+	-webkit-align-content: space-around;
+}
+_section {
+    /*flex //none | auto | initial |[ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]*/
+    /*none(0 0 auto), auto(1 1 auto), initial(0 1 auto)*/
+	-webkit-flex: 1 1 auto;
+    /*拡大率　内包するコンテンツサイズを1とした時の拡大率、0も指定できるが表示が最小になる*/
+	-webkit-flex-grow: 1;
+    /*縮小率　内包するコンテンツサイズを1とした時の縮小率*/
+	-webkit-flex-shrink: 1;
+    /*基本サイズ　autoはwidthプロパティに依存、子要素のサイズの合計がflexコンテナ（親要素）のサイズに満たない場合はflex-basisは指定サイズに関係なくスペースを埋める*/
+	-webkit-flex-basis: auto;
+	border: #888;
+}
+section {
+		padding: 1em;
+		border: #888;
+}
+
+.flex {
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: flex;
+}
+.box1 {
+		background: #dff
+}
+.box2 {
+		background: #fdf
+}
+.box3 {
+		background: #ffd
+}
+
+#fbox2 {
+  -webkit-flex-flow: row-reverse wrap;
+		-webkit-align-items: flex-start;
+		flex-flow: row-reverse wrap;
+		align-items: flex-start;
+  background: #ccc
+}
+#sec2-1, #sec2-2, #sec2-3 {
+  width: 200px;
+}
+
+
+#sec3-1 {
+		-webkit-flex: 1 1 0px;
+		-webkit-order: 2;
+		flex: 1 1 0px;
+		order: 2;
+}
+#sec3-2 {
+		-webkit-flex: 1 1 0px;
+		-webkit-order: 3;
+		flex: 1 1 0px;
+		order: 3;
+}
+#sec3-3 {
+		-webkit-flex: 1 1 0px;
+		-webkit-order: 1;
+		flex: 1 1 0px;
+		order: 1;
+}  
+</style>
+<script type="text/javascript" src="../scripts/shCore.js"></script>
+<script type="text/javascript" src="../scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="../scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="../scripts/shBrushXml.js"></script>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+</head>
+<body>
+
+<h1>可変ボックス ("Flexbox") レイアウト</h1>
+<article>
+
+<pre class="source brush: html;" title="html">
+<div class="flex">
+<section class="box1">・・・</section>
+<section class="box2">・・・</section>
+<section class="box3">・・・</section>
+</div>
+</pre>
+
+<h2>初期値</h2>
+<div class="flex">
+<section class="box1">
+<h3>1</h3>
+<p>flexbox レイアウトは、ボックスの白を、複数の子要素にそのサイズに応じて均等に分配し、それらの子要素をコンテナーとなるブロックの中央に配置することができます。</p>
+</section>
+
+<section class="box2">
+<h3>2</h3>
+<p>flexbox レイアウトを有効にするには、最初に flexbox コンテナーを作成する必要があります。そうするには、要素の display プロパティを "-ms-flexbox" (ブロック レベルの flexbox コンテナーの場合) または "-ms-inline-flexbox" (インライン flexbox コンテナーの場合) に設定します。(CSS 可変ボックス レイアウトox" という ID の要素内でブロック レベルの flexbox コンテナーを作成しています。</p>
+</section>
+
+<section class="box3">
+<h3>3</h3>
+<p>Internet Explorer 10 では、すべてのボックスを最小のサイズにすることで、親ボックスの子要素ができるだけ少されるかはブロック方向によって決まり、記述方向やその他の特定の設定に応じて左から右または右から左のどちらかになります。</p>
+</section>
+</div>
+  
+<pre class="source brush: css;" title="css">
+.flex {
+display: -webkit-flex;
+display: -moz-flex;
+display: -ms-flex;
+display: flex;
+}
+</pre>
+<p>子要素（各section）にflex関連プロパティが指定していないため、初期値であるボックスがあふれず、幅が各ボックスの内容によって自動調整される
+<br />
+また指定していない場合、高さも内容が一番多いボックスに合わせられる</p>
+</article>
+
+<article>
+<h2>ボックスレイアウトの方向、揃えを指定</h2>
+<div class="flex" id="fbox2">
+<section class="box1" id="sec2-1">
+<h3>1</h3>
+<p>flexbox レイアウトは、ボックスの白を、複数の子要素にそのサイズに応じて均等に分配し、それらの子要素をコンテナーとなるブロックの中央に配置することができます。</p>
+</section>
+
+<section class="box2" id="sec2-2">
+<h3>2</h3>
+<p>flexbox レイアウトを有効にするには、最初に flexbox コンテナーを作成する必要があります。そうするには、要素の display プロパティを "-ms-flexbox" (ブロック レベルの flexbox コンテナーの場合) または "-ms-inline-flexbox" (インライン flexbox コンテナーの場合) に設定します。(CSS 可変ボックス レイアウトox" という ID の要素内でブロック レベルの flexbox コンテナーを作成しています。</p>
+</section>
+
+<section class="box3" id="sec2-3">
+<h3>3</h3>
+<p>Internet Explorer 10 では、すべてのボックスを最小のサイズにすることで、親ボックスの子要素ができるだけ少されるかはブロック方向によって決まり、記述方向やその他の特定の設定に応じて左から右または右から左のどちらかになります。</p>
+</section>
+</div>
+  
+<pre class="source brush: css;" title="css">
+/* 親要素（div） */
+#fbox2 {
+/* ショートハンド　レイアウトの方向を右から左、ボックスがあふれた場合は折り返し */
+  -webkit-flex-flow: row-reverse wrap;
+  flex-flow: row-reverse wrap;
+/* 子要素を上揃え */
+	 -webkit-align-items: flex-start;
+  align-items: flex-start;
+  background: #ccc
+}
+/* 子要素（section） */
+#sec2-1, #sec2-2, #sec2-3 {
+  width: 200px;
+}
+</pre>
+<p>揃えを指定すると子要素の幅が均等で内容に差があれば高さは調整されない</p>
+</article>
+  
+
+<article>
+<h2>子要素の幅と表示順を指定</h2>
+<div class="flex">
+<section class="box1" id="sec3-1">
+<h3>1</h3>
+<p>flexbox レイアウトは、ボックスの白を、複数の子要素にそのサイズに応じて均等に分配し、それらの子要素をコンテナーとなるブロックの中央に配置することができます。</p>
+</section>
+
+<section class="box2" id="sec3-2">
+<h3>2</h3>
+<p>flexbox レイアウトを有効にするには、最初に flexbox コンテナーを作成する必要があります。そうするには、要素の display プロパティを "-ms-flexbox" (ブロック レベルの flexbox コンテナーの場合) または "-ms-inline-flexbox" (インライン flexbox コンテナーの場合) に設定します。(CSS 可変ボックス レイアウトox" という ID の要素内でブロック レベルの flexbox コンテナーを作成しています。</p>
+</section>
+
+<section class="box3" id="sec3-3">
+<h3>3</h3>
+<p>Internet Explorer 10 では、すべてのボックスを最小のサイズにすることで、親ボックスの子要素ができるだけ少されるかはブロック方向によって決まり、記述方向やその他の特定の設定に応じて左から右または右から左のどちらかになります。</p>
+</section>
+</div>
+
+<pre class="source brush: css;" title="css">
+#sec3-1 {
+/* ショートハンド 子要素の拡大率、縮小率、基本サイズを指定 */
+		-webkit-flex: 1 1 0px;
+  flex: 1 1 0px;
+/* 表示順 */
+		-webkit-order: 2;
+  order: 2;
+}
+#sec3-2 {
+		-webkit-flex: 1 1 0px;
+		-webkit-order: 3;
+		flex: 1 1 0px;
+		order: 3;
+}
+#sec3-3 {
+		-webkit-flex: 1 1 0px;
+		-webkit-order: 1;
+		flex: 1 1 0px;
+		order: 1;
+}  
+</pre>
+<p>拡大率と縮小率は内包するコンテンツサイズを1とする<br />
+子要素の幅の指定はwidthでも可能であるが、flexプロパティですべての子要素を同じ基本サイズ（幅）を指定すると均等幅で調整される。また計算における親和性も高い<br />
+	表示順の指定はグループ単位、子要素が多数ある場合に指定した値が重複可能でその時の表示順は記述順と同じ</p>
+	
+</article>  
+</body>
+</html>
